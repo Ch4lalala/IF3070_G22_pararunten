@@ -4,6 +4,7 @@ import csv
 import hashlib
 import io
 import json
+import math
 from dataclasses import asdict, is_dataclass
 from enum import Enum
 from pathlib import Path
@@ -203,6 +204,35 @@ def save_checkpoint(bundle):
         temporary.write_bytes(content)
         temporary.replace(summary_path)
 
+def draw_sa_exponential(ax, runs):
+    """Gambar exp(delta/T) pada skala logaritmik tanpa membatasi nilai ke 1."""
+    from matplotlib.ticker import FuncFormatter
+
+    colors = ["#2166AC", "#D55E00", "#26845B"]
+    styles = ["-", "--", ":"]
+    has_values = False
+    for i, run in enumerate(runs):
+        # log10(exp(delta/T)) = delta / T / ln(10).
+        # Hitung dalam bentuk log agar exp yang sangat besar/kecil tidak overflow.
+        values = [float("nan") if delta is None else delta / temperature / math.log(10)
+                  for delta, temperature in zip(run["deltas"], run["temperatures"])]
+        has_values = has_values or any(delta is not None for delta in run["deltas"])
+        ax.plot(range(1, len(values) + 1), values,
+                color=colors[i % len(colors)], linestyle=styles[i % len(styles)],
+                linewidth=1.2, alpha=.85,
+                label=f"Percobaan {i + 1} (seed {run['seed']})")
+
+    # Koordinat y memakai log10; label menunjukkan nilai eksponensial aslinya.
+    ax.yaxis.set_major_formatter(FuncFormatter(lambda value, _: f"$10^{{{value:g}}}$"))
+    ax.set_title(f"SA: exp(delta / T) dari {len(runs)} Percobaan")
+    ax.set_xlabel("Iterasi")
+    ax.set_ylabel(r"$e^{\Delta E/T}$ (skala logaritmik)")
+    ax.grid(alpha=.3)
+    ax.legend()
+    if not has_values:
+        ax.text(.5, .5, "Tidak ada kandidat untuk dihitung", ha="center", transform=ax.transAxes)
+
+
 def save_plot(runs, folder):
     """Buat plot satu run atau gabungkan beberapa run untuk perbandingan."""
     from matplotlib.backends.backend_agg import FigureCanvasAgg
@@ -242,23 +272,9 @@ def save_plot(runs, folder):
             figure = Figure(figsize=(10, 5))
             FigureCanvasAgg(figure)
             ax = figure.subplots()
-            for i, run in enumerate(runs):
-                # Data tanpa kandidat diberi celah, bukan diubah menjadi nol.
-                values = [float("nan") if p is None else p for p in run["raw"]["probs"]]
-                ax.plot(range(1, len(values) + 1), values,
-                        color=colors[i % len(colors)],
-                        linestyle=styles[i % len(styles)], linewidth=1.2, alpha=.85,
-                        label=f"Percobaan {i + 1} (seed {run['seed']})")
-            ax.set_title(f"SA: Probabilitas Penerimaan dari {len(runs)} Percobaan")
-            ax.set_xlabel("Iterasi")
-            ax.set_ylabel("p = min(1, exp(delta / T))")
-            ax.set_ylim(-.03, 1.03)
-            ax.grid(alpha=.3)
-            ax.legend()
-            if not any(run["raw"]["probs"] for run in runs):
-                ax.text(.5, .5, "Tidak ada iterasi", ha="center", transform=ax.transAxes)
+            draw_sa_exponential(ax, [run["raw"] for run in runs])
             figure.tight_layout()
-            path = folder / "probability.png"
+            path = folder / "exponential.png"
             figure.savefig(path, dpi=150)
             figure.clear()
             paths.append(path)

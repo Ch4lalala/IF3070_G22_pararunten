@@ -65,7 +65,7 @@ def get_neighbors(vehicles, positions, ship):
     return neighbors
 
 def hill_climbing(vehicles, ship, rng, max_sideways=100, initial=None):
-    """HC dengan sideways; initial=None membuat susunan awal acak di sini."""
+    """HC dengan batas total sideways; initial=None membuat susunan awal acak."""
     # Durasi mencakup pembuatan susunan awal dan pencarian.
     start_time = perf_counter()
 
@@ -79,8 +79,7 @@ def hill_climbing(vehicles, ship, rng, max_sideways=100, initial=None):
     current_value = calculate_objective(vehicles, current)
     initial_objective = current_value  # Simpan nilai sebelum pencarian dimulai.
 
-    sideways_count = 0 
-    total_sideways = 0 
+    total_sideways = 0  # Tidak direset setelah objective meningkat.
     iterations = 0     
     history = [current_value]  #Nilai awal pada iterasi 0
 
@@ -112,16 +111,11 @@ def hill_climbing(vehicles, ship, rng, max_sideways=100, initial=None):
 
         if best_value == current_value:
             #Kandidat sama nilainya: gunakan jatah sideways
-            if sideways_count >= max_sideways:
+            if total_sideways >= max_sideways:
                 stop_reason = "sideways_limit"
                 break
 
-            sideways_count += 1
             total_sideways += 1
-
-        else:
-            #Ada peningkatan: reset hitungan sideways berturut-turut
-            sideways_count = 0
 
         # Pilih acak jika beberapa kandidat memiliki nilai terbaik sama.
         current = rng.choice(best_neighbors)
@@ -131,7 +125,7 @@ def hill_climbing(vehicles, ship, rng, max_sideways=100, initial=None):
         history.append(current_value)
 
         #Hentikan setelah batas sideways tercapai
-        if sideways_count > 0 and sideways_count >= max_sideways:
+        if total_sideways > 0 and total_sideways >= max_sideways:
             stop_reason = "sideways_limit"
             break
 
@@ -145,6 +139,7 @@ def hill_climbing(vehicles, ship, rng, max_sideways=100, initial=None):
         "history": history,
         "iterations": iterations,
         "total_sideways": total_sideways,
+        "sideways_limit_scope": "total",
         "duration": duration,
         "duration_scope": "initialization_and_search" if initial is None else "search_only",
         "parameters": {"max_sideways": max_sideways},
