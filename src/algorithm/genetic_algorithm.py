@@ -2,8 +2,9 @@ from ..init.constraints import is_valid_state
 from ..init.objective import calculate_objective
 from ..init.initialization import generate_initial_state
 from ..init.models import Position, Orientation
-from ..init.neighbors import move, rotate, swap
+from ..init.operations import move, rotate, swap
 from time import perf_counter
+import random
 
 def generate_genome(vehicles, ship, rng):
     """Membuat satu individu berupa susunan kendaraan yang valid."""
@@ -64,12 +65,15 @@ def mutate(individual, ship, rng):
 def run_genetic_algorithm(
     vehicles,
     ship,
-    population_size,
-    generations,
-    mutation_rate,
-    rng,
+    population_size=20,
+    generations=100,
+    mutation_rate=0.1,
+    rng=None,
 ):
-    """Menjalankan GA dan mencatat hasil pencarian."""
+    """Menjalankan GA; parameter yang tidak diberikan memakai nilai bawaan."""
+    if rng is None:
+        rng = random.Random()
+
     if type(population_size) is not int or population_size < 1:
         raise ValueError("Jumlah populasi harus integer minimal 1.")
 
