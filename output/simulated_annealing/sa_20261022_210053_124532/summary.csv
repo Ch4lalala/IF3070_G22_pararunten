@@ -1,0 +1,4 @@
+﻿Percobaan,Run ID,Algoritma,Seed,Objective awal,Objective hasil,Jumlah iterasi,Durasi (detik),Cakupan durasi,Suhu awal,Alpha,Suhu minimum,Batas iterasi,Objective terbaik,Frekuensi local optimum,Langkah menurun diterima,Kandidat ditolak,Gagal mencari tetangga,Alasan berhenti
+1,SA_seed-42,SA,42,1750.0,3080.0,5000,22.5841,initialization_and_search,100,0.999,0.1,5000,3080.0,50,45,1945,1,iteration_limit
+2,SA_seed-43,SA,43,2150.0,3060.0,5000,28.0321,initialization_and_search,100,0.999,0.1,5000,3060.0,15,25,1670,1,iteration_limit
+3,SA_seed-44,SA,44,1920.0,3060.0,5000,30.8072,initialization_and_search,100,0.999,0.1,5000,3060.0,31,43,1727,0,iteration_limit

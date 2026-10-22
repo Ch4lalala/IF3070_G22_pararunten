@@ -1,0 +1,4 @@
+﻿Percobaan,Run ID,Algoritma,Seed,Objective awal,Objective hasil,Jumlah iterasi,Durasi (detik),Cakupan durasi,Maksimum sideways,Total sideways,Alasan berhenti
+1,HC_seed-42,HC,42,1750.0,2720.0,107,1.7267,initialization_and_search,100,101,sideways_limit
+2,HC_seed-43,HC,43,2150.0,2750.0,186,3.226,initialization_and_search,100,180,sideways_limit
+3,HC_seed-44,HC,44,1920.0,2900.0,124,2.0689,initialization_and_search,100,116,sideways_limit
