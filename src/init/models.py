@@ -12,7 +12,7 @@ class Dimension:
 
 @dataclass
 class Vehicle:
-  id: int
+  id: str
   dimensions: Dimension
   shipping_fee: float
   weight: float
