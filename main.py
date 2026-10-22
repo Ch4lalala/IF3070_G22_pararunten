@@ -15,7 +15,7 @@ from src.init.initialization import generate_initial_state
 from src.init.objective import calculate_objective
 from src.result_io import (
     dataset_digest, load_json, make_models, normalize_result,
-    save_checkpoint, save_run, write_json,
+    save_checkpoint, save_plot, save_run, write_json,
 )
 
 ROOT = Path(__file__).resolve().parent
@@ -210,6 +210,8 @@ def execute_experiment(dataset, algorithm, seeds, parameters=None, output_root=N
             bundle["runs"].append(record)
             save_checkpoint(bundle)
             notify(f"Tersimpan {number}/{len(jobs)} · {job['run_id']}")
+        # Grafik membandingkan ketiga seed setelah seluruh run selesai.
+        save_plot(bundle["runs"], folder)
         bundle["status"] = "complete"
         save_checkpoint(bundle)
         notify(f"Selesai. {len(jobs)} percobaan sudah tersimpan.")
@@ -318,13 +320,15 @@ def plot_objective(results):
             key = (result.get("group", ""), result["population_size"], result["iterations"])
             configurations.setdefault(key, []).append(result)
     for (group, population, generations), records in configurations.items():
-        fig, axes = plt.subplots(1, len(records), figsize=(5 * len(records), 4), squeeze=False)
-        for ax, result in zip(axes[0], records):
+        fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+        for i, result in enumerate(records):
             history = result["history"]
             x = [row["iteration"] for row in history]
-            ax.plot(x, [row["maximum"] for row in history], label="Maksimum")
-            ax.plot(x, [row["average"] for row in history], label="Rata-rata")
-            ax.set(title=f"Seed {result['seed']}", xlabel="Generasi", ylabel="Shipping fee")
+            for ax, field in zip(axes, ("maximum", "average")):
+                ax.plot(x, [row[field] for row in history],
+                        label=f"Percobaan {i + 1} (seed {result['seed']})")
+        for ax, title in zip(axes, ("Maksimum Objective", "Rata-rata Populasi")):
+            ax.set(title=title, xlabel="Generasi", ylabel="Shipping fee")
             ax.grid(alpha=.3)
             ax.legend()
         fig.suptitle(f"GA {group}: populasi {population}, generasi {generations}")
@@ -333,7 +337,7 @@ def plot_objective(results):
 
 
 def main():
-    """Jalankan eksperimen; setiap run langsung disimpan beserta grafik PNG."""
+    """Simpan data dan plot tiap run, lalu buat grafik gabungan pada akhir sesi."""
     dataset_path = ROOT / "data" / f"{DATASET}.json"
     dataset = load_json(dataset_path)
     vehicles, ship = make_models(dataset)

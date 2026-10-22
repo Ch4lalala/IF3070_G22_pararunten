@@ -200,56 +200,108 @@ def save_checkpoint(bundle):
         temporary.write_bytes(content)
         temporary.replace(summary_path)
 
-def save_plot(record, folder):
-    """Membuat PNG objective dan probabilitas SA tanpa membuka aplikasi."""
+def save_plot(runs, folder):
+    """Buat plot satu run atau gabungkan beberapa run untuk perbandingan."""
     from matplotlib.backends.backend_agg import FigureCanvasAgg
     from matplotlib.figure import Figure
 
+    if not runs:
+        return []
     folder = Path(folder)
-    figure = Figure(figsize=(9, 4))
-    FigureCanvasAgg(figure)
-    ax = figure.subplots()
-    if record["algorithm"] in ("HC", "SA"):
-        ax.plot(range(len(record["history"])), record["history"],
-                label="Objective", drawstyle="steps-post")
-        ax.set_xlabel("Iterasi (0 = state awal)")
-    elif record["algorithm"] == "GA":
-        history = record["history"]
-        x = [row["iteration"] for row in history]
-        ax.plot(x, [row["maximum"] for row in history], label="Maksimum generasi")
-        ax.plot(x, [row["average"] for row in history], label="Rata-rata populasi")
-        ax.set_xlabel("Generasi (0 = populasi awal)")
-    else:
-        raise ValueError("Algoritma tidak dikenal: " + str(record["algorithm"]))
-    ax.set_title(f"{record['algorithm']} - seed {record['seed']}")
-    ax.set_ylabel("Shipping fee (juta rupiah)")
-    ax.grid(alpha=.3)
-    ax.legend()
-    figure.tight_layout()
-    figure.savefig(folder / "objective.png", dpi=150)
-    figure.clear()
+    algorithm = runs[0]["algorithm"]
+    colors = ["#2166AC", "#D55E00", "#26845B"]
+    styles = ["-", "--", ":"]
+    paths = []
 
-    if record["algorithm"] == "SA":
-        raw = record["raw"]
-        # None berarti tidak memperoleh kandidat, sehingga garis diberi celah.
-        values = [float("nan") if p is None else p for p in raw["probs"]]
-        figure = Figure(figsize=(9, 4))
+    if algorithm in ("HC", "SA"):
+        figure = Figure(figsize=(10, 5))
         FigureCanvasAgg(figure)
         ax = figure.subplots()
-        ax.plot(range(1, len(values) + 1), values, color="#D27736", linewidth=1)
-        ax.set_title(f"SA - seed {record['seed']}: p = min(1, exp(delta / T))")
-        ax.set_xlabel("Iterasi")
-        ax.set_ylabel("Probabilitas penerimaan")
-        ax.set_ylim(-.03, 1.03)
+        for i, run in enumerate(runs):
+            history = run["history"]
+            color = colors[i % len(colors)]
+            ax.plot(range(len(history)), history, color=color,
+                    linestyle=styles[i % len(styles)], linewidth=1.8,
+                    label=f"Percobaan {i + 1} (seed {run['seed']})")
+            ax.plot(len(history) - 1, history[-1], "o", color=color, markersize=4)
+        ax.set_title(f"{algorithm}: Objective dari {len(runs)} Percobaan")
+        ax.set_xlabel("Iterasi (0 = state awal)")
+        ax.set_ylabel("Shipping fee (juta rupiah)")
         ax.grid(alpha=.3)
-        if not values:
-            ax.text(.5, .5, "Tidak ada iterasi", ha="center", transform=ax.transAxes)
+        ax.legend()
         figure.tight_layout()
-        figure.savefig(folder / "probability.png", dpi=150)
+        path = folder / "objective.png"
+        figure.savefig(path, dpi=150)
         figure.clear()
+        paths.append(path)
+
+        if algorithm == "SA":
+            figure = Figure(figsize=(10, 5))
+            FigureCanvasAgg(figure)
+            ax = figure.subplots()
+            for i, run in enumerate(runs):
+                # Data tanpa kandidat diberi celah, bukan diubah menjadi nol.
+                values = [float("nan") if p is None else p for p in run["raw"]["probs"]]
+                ax.plot(range(1, len(values) + 1), values,
+                        color=colors[i % len(colors)],
+                        linestyle=styles[i % len(styles)], linewidth=1.2, alpha=.85,
+                        label=f"Percobaan {i + 1} (seed {run['seed']})")
+            ax.set_title(f"SA: Probabilitas Penerimaan dari {len(runs)} Percobaan")
+            ax.set_xlabel("Iterasi")
+            ax.set_ylabel("p = min(1, exp(delta / T))")
+            ax.set_ylim(-.03, 1.03)
+            ax.grid(alpha=.3)
+            ax.legend()
+            if not any(run["raw"]["probs"] for run in runs):
+                ax.text(.5, .5, "Tidak ada iterasi", ha="center", transform=ax.transAxes)
+            figure.tight_layout()
+            path = folder / "probability.png"
+            figure.savefig(path, dpi=150)
+            figure.clear()
+            paths.append(path)
+
+    elif algorithm == "GA":
+        # Kelompok A/B dan konfigurasi yang berbeda mempunyai grafik terpisah.
+        configurations = {}
+        for run in runs:
+            raw = run["raw"]
+            key = (run.get("group", "") or "GA", raw["population_size"], raw["iterations"])
+            configurations.setdefault(key, []).append(run)
+
+        for (group, population, generations), records in configurations.items():
+            figure = Figure(figsize=(12, 5))
+            FigureCanvasAgg(figure)
+            axes = figure.subplots(1, 2)
+            for i, run in enumerate(records):
+                history = run["history"]
+                x = [row["iteration"] for row in history]
+                for ax, field in zip(axes, ("maximum", "average")):
+                    ax.plot(x, [row[field] for row in history],
+                            color=colors[i % len(colors)],
+                            linestyle=styles[i % len(styles)], linewidth=1.8,
+                            label=f"Percobaan {i + 1} (seed {run['seed']})")
+            for ax, title in zip(axes, ("Maksimum Objective", "Rata-rata Populasi")):
+                ax.set_title(title)
+                ax.set_xlabel("Generasi (0 = populasi awal)")
+                ax.set_ylabel("Shipping fee (juta rupiah)")
+                ax.grid(alpha=.3)
+                ax.legend(fontsize=9)
+            figure.suptitle(f"GA {group}: populasi {population}, generasi {generations} "
+                           f"({len(records)} percobaan)")
+            figure.tight_layout()
+            # Satu run memakai nama yang sama dengan HC/SA.
+            filename = ("objective.png" if len(runs) == 1 else
+                        f"objective_{group}_pop-{population}_iter-{generations}.png")
+            path = folder / filename
+            figure.savefig(path, dpi=150)
+            figure.clear()
+            paths.append(path)
+    else:
+        raise ValueError("Algoritma tidak dikenal: " + str(algorithm))
+    return paths
 
 def save_run(record, folder):
-    """Simpan hasil setiap run: JSON, CSV, objective.png, dan probability.png SA."""
+    """Simpan JSON, CSV, dan plot setiap run; grafik gabungan dibuat di akhir sesi."""
     folder = Path(folder)
     folder.mkdir(parents=True, exist_ok=False)
     write_json(folder / "run.json", record["raw"])
@@ -276,7 +328,9 @@ def save_run(record, folder):
             text = "iteration,temperature,delta,acceptance_probability,local_optimum\r\n"
         (folder / "probabilities.csv").write_text(text, encoding="utf-8-sig", newline="")
 
-    save_plot(record, folder)
+    # Plot tersendiri untuk run ini, selain plot gabungan pada folder sesi.
+    save_plot([record], folder)
+
 
 def list_sessions(project_root):
     """Mencari hasil HC/GA baru dan arsip dari struktur lama."""
