@@ -1,12 +1,11 @@
 import random
 from collections.abc import Sequence
-
 from .models import Vehicle, Position, Ship, Orientation
 from .constraints import is_valid_state
 
 
 def generate_initial_state(vehicles: Sequence[Vehicle], ship: Ship, rng: random.Random, max_attempts: int = 50) -> list[Position | None]:
-    """Membuat susunan awal acak yang valid."""
+    """Membuat susunan awal acak yang valid"""
     positions = [None] * len(vehicles)
 
     indices = list(range(len(vehicles)))
