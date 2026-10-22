@@ -1,0 +1,10 @@
+Objective value: 360.0
+
+V001: Position(x=0, y=0, orientation=<Orientation.HORIZONTAL: 'horizontal'>)
+V002: None
+V003: None
+V004: Position(x=2, y=0, orientation=<Orientation.HORIZONTAL: 'horizontal'>)
+V005: Position(x=3, y=0, orientation=<Orientation.HORIZONTAL: 'horizontal'>)
+V006: Position(x=1, y=4, orientation=<Orientation.VERTICAL: 'vertical'>)
+V007: None
+V008: None

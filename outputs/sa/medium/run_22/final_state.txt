@@ -1,0 +1,26 @@
+Objective value: 3080.0
+
+V001: Position(x=7, y=5, orientation=<Orientation.HORIZONTAL: 'horizontal'>)
+V002: None
+V003: None
+V004: None
+V005: Position(x=5, y=2, orientation=<Orientation.VERTICAL: 'vertical'>)
+V006: None
+V007: None
+V008: None
+V009: Position(x=0, y=3, orientation=<Orientation.HORIZONTAL: 'horizontal'>)
+V010: Position(x=3, y=2, orientation=<Orientation.HORIZONTAL: 'horizontal'>)
+V011: Position(x=5, y=5, orientation=<Orientation.HORIZONTAL: 'horizontal'>)
+V012: None
+V013: None
+V014: None
+V015: None
+V016: None
+V017: None
+V018: None
+V019: None
+V020: Position(x=8, y=7, orientation=<Orientation.VERTICAL: 'vertical'>)
+V021: Position(x=8, y=0, orientation=<Orientation.VERTICAL: 'vertical'>)
+V022: Position(x=3, y=0, orientation=<Orientation.HORIZONTAL: 'horizontal'>)
+V023: Position(x=0, y=0, orientation=<Orientation.HORIZONTAL: 'horizontal'>)
+V024: Position(x=5, y=7, orientation=<Orientation.VERTICAL: 'vertical'>)

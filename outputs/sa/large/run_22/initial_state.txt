@@ -1,0 +1,52 @@
+Objective value: 3010.0
+
+V001: Position(x=8, y=3, orientation=<Orientation.VERTICAL: 'vertical'>)
+V002: None
+V003: None
+V004: None
+V005: Position(x=15, y=1, orientation=<Orientation.VERTICAL: 'vertical'>)
+V006: None
+V007: None
+V008: None
+V009: None
+V010: None
+V011: None
+V012: None
+V013: None
+V014: None
+V015: None
+V016: None
+V017: None
+V018: None
+V019: None
+V020: None
+V021: None
+V022: Position(x=12, y=1, orientation=<Orientation.HORIZONTAL: 'horizontal'>)
+V023: None
+V024: None
+V025: Position(x=6, y=5, orientation=<Orientation.HORIZONTAL: 'horizontal'>)
+V026: None
+V027: Position(x=1, y=7, orientation=<Orientation.VERTICAL: 'vertical'>)
+V028: None
+V029: None
+V030: Position(x=11, y=10, orientation=<Orientation.VERTICAL: 'vertical'>)
+V031: None
+V032: None
+V033: None
+V034: None
+V035: None
+V036: Position(x=2, y=2, orientation=<Orientation.VERTICAL: 'vertical'>)
+V037: Position(x=9, y=7, orientation=<Orientation.HORIZONTAL: 'horizontal'>)
+V038: None
+V039: Position(x=9, y=1, orientation=<Orientation.VERTICAL: 'vertical'>)
+V040: None
+V041: None
+V042: Position(x=0, y=0, orientation=<Orientation.VERTICAL: 'vertical'>)
+V043: Position(x=0, y=2, orientation=<Orientation.VERTICAL: 'vertical'>)
+V044: Position(x=3, y=8, orientation=<Orientation.HORIZONTAL: 'horizontal'>)
+V045: None
+V046: Position(x=12, y=5, orientation=<Orientation.VERTICAL: 'vertical'>)
+V047: Position(x=8, y=11, orientation=<Orientation.HORIZONTAL: 'horizontal'>)
+V048: None
+V049: Position(x=2, y=0, orientation=<Orientation.VERTICAL: 'vertical'>)
+V050: Position(x=0, y=14, orientation=<Orientation.VERTICAL: 'vertical'>)

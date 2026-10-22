@@ -1,0 +1,556 @@
+{
+  "schema_version": 2,
+  "dataset_id": "large",
+  "description": "Dataset sintetis dengan permintaan luas dan berat melebihi kapasitas; setiap kendaraan dapat diangkut secara individual.",
+  "units": {
+    "dimensions": "grid_cell",
+    "weight": "unit",
+    "max_capacity": "unit",
+    "shipping_fee": "million_idr",
+    "eta": "day"
+  },
+  "generation": {
+    "method": "python_random",
+    "seed": 307050,
+    "ranges_inclusive": {
+      "w": [
+        2,
+        5
+      ],
+      "l": [
+        2,
+        8
+      ],
+      "shipping_fee_base": [
+        5,
+        40
+      ],
+      "shipping_fee_multiplier": 10,
+      "weight": [
+        3,
+        18
+      ],
+      "eta_base": [
+        1,
+        12
+      ],
+      "eta_multiplier": 1
+    },
+    "draw_order": [
+      "w",
+      "l",
+      "shipping_fee_base",
+      "weight",
+      "eta_base"
+    ]
+  },
+  "ship": {
+    "dimensions": {
+      "w": 20,
+      "l": 16
+    },
+    "max_capacity": 280
+  },
+  "vehicles": [
+    {
+      "id": "V001",
+      "dimensions": {
+        "w": 4,
+        "l": 4
+      },
+      "shipping_fee": 60,
+      "weight": 12,
+      "eta": 1
+    },
+    {
+      "id": "V002",
+      "dimensions": {
+        "w": 3,
+        "l": 8
+      },
+      "shipping_fee": 180,
+      "weight": 17,
+      "eta": 4
+    },
+    {
+      "id": "V003",
+      "dimensions": {
+        "w": 5,
+        "l": 6
+      },
+      "shipping_fee": 50,
+      "weight": 11,
+      "eta": 8
+    },
+    {
+      "id": "V004",
+      "dimensions": {
+        "w": 2,
+        "l": 4
+      },
+      "shipping_fee": 100,
+      "weight": 17,
+      "eta": 2
+    },
+    {
+      "id": "V005",
+      "dimensions": {
+        "w": 4,
+        "l": 5
+      },
+      "shipping_fee": 260,
+      "weight": 10,
+      "eta": 9
+    },
+    {
+      "id": "V006",
+      "dimensions": {
+        "w": 3,
+        "l": 5
+      },
+      "shipping_fee": 260,
+      "weight": 17,
+      "eta": 7
+    },
+    {
+      "id": "V007",
+      "dimensions": {
+        "w": 3,
+        "l": 5
+      },
+      "shipping_fee": 240,
+      "weight": 6,
+      "eta": 3
+    },
+    {
+      "id": "V008",
+      "dimensions": {
+        "w": 5,
+        "l": 6
+      },
+      "shipping_fee": 80,
+      "weight": 15,
+      "eta": 11
+    },
+    {
+      "id": "V009",
+      "dimensions": {
+        "w": 2,
+        "l": 6
+      },
+      "shipping_fee": 80,
+      "weight": 5,
+      "eta": 5
+    },
+    {
+      "id": "V010",
+      "dimensions": {
+        "w": 2,
+        "l": 7
+      },
+      "shipping_fee": 340,
+      "weight": 7,
+      "eta": 10
+    },
+    {
+      "id": "V011",
+      "dimensions": {
+        "w": 5,
+        "l": 3
+      },
+      "shipping_fee": 100,
+      "weight": 18,
+      "eta": 4
+    },
+    {
+      "id": "V012",
+      "dimensions": {
+        "w": 2,
+        "l": 8
+      },
+      "shipping_fee": 380,
+      "weight": 13,
+      "eta": 8
+    },
+    {
+      "id": "V013",
+      "dimensions": {
+        "w": 5,
+        "l": 6
+      },
+      "shipping_fee": 80,
+      "weight": 4,
+      "eta": 5
+    },
+    {
+      "id": "V014",
+      "dimensions": {
+        "w": 2,
+        "l": 6
+      },
+      "shipping_fee": 200,
+      "weight": 4,
+      "eta": 11
+    },
+    {
+      "id": "V015",
+      "dimensions": {
+        "w": 2,
+        "l": 5
+      },
+      "shipping_fee": 290,
+      "weight": 16,
+      "eta": 6
+    },
+    {
+      "id": "V016",
+      "dimensions": {
+        "w": 4,
+        "l": 4
+      },
+      "shipping_fee": 340,
+      "weight": 15,
+      "eta": 9
+    },
+    {
+      "id": "V017",
+      "dimensions": {
+        "w": 4,
+        "l": 5
+      },
+      "shipping_fee": 60,
+      "weight": 18,
+      "eta": 2
+    },
+    {
+      "id": "V018",
+      "dimensions": {
+        "w": 4,
+        "l": 4
+      },
+      "shipping_fee": 140,
+      "weight": 7,
+      "eta": 7
+    },
+    {
+      "id": "V019",
+      "dimensions": {
+        "w": 3,
+        "l": 4
+      },
+      "shipping_fee": 190,
+      "weight": 11,
+      "eta": 1
+    },
+    {
+      "id": "V020",
+      "dimensions": {
+        "w": 3,
+        "l": 5
+      },
+      "shipping_fee": 140,
+      "weight": 8,
+      "eta": 7
+    },
+    {
+      "id": "V021",
+      "dimensions": {
+        "w": 5,
+        "l": 5
+      },
+      "shipping_fee": 190,
+      "weight": 8,
+      "eta": 6
+    },
+    {
+      "id": "V022",
+      "dimensions": {
+        "w": 3,
+        "l": 3
+      },
+      "shipping_fee": 70,
+      "weight": 5,
+      "eta": 8
+    },
+    {
+      "id": "V023",
+      "dimensions": {
+        "w": 2,
+        "l": 3
+      },
+      "shipping_fee": 270,
+      "weight": 7,
+      "eta": 2
+    },
+    {
+      "id": "V024",
+      "dimensions": {
+        "w": 5,
+        "l": 5
+      },
+      "shipping_fee": 260,
+      "weight": 13,
+      "eta": 12
+    },
+    {
+      "id": "V025",
+      "dimensions": {
+        "w": 2,
+        "l": 7
+      },
+      "shipping_fee": 130,
+      "weight": 16,
+      "eta": 8
+    },
+    {
+      "id": "V026",
+      "dimensions": {
+        "w": 3,
+        "l": 5
+      },
+      "shipping_fee": 260,
+      "weight": 15,
+      "eta": 5
+    },
+    {
+      "id": "V027",
+      "dimensions": {
+        "w": 4,
+        "l": 2
+      },
+      "shipping_fee": 90,
+      "weight": 17,
+      "eta": 9
+    },
+    {
+      "id": "V028",
+      "dimensions": {
+        "w": 3,
+        "l": 5
+      },
+      "shipping_fee": 120,
+      "weight": 8,
+      "eta": 7
+    },
+    {
+      "id": "V029",
+      "dimensions": {
+        "w": 4,
+        "l": 6
+      },
+      "shipping_fee": 400,
+      "weight": 16,
+      "eta": 8
+    },
+    {
+      "id": "V030",
+      "dimensions": {
+        "w": 5,
+        "l": 8
+      },
+      "shipping_fee": 50,
+      "weight": 15,
+      "eta": 11
+    },
+    {
+      "id": "V031",
+      "dimensions": {
+        "w": 5,
+        "l": 4
+      },
+      "shipping_fee": 270,
+      "weight": 5,
+      "eta": 7
+    },
+    {
+      "id": "V032",
+      "dimensions": {
+        "w": 3,
+        "l": 2
+      },
+      "shipping_fee": 370,
+      "weight": 10,
+      "eta": 5
+    },
+    {
+      "id": "V033",
+      "dimensions": {
+        "w": 5,
+        "l": 2
+      },
+      "shipping_fee": 190,
+      "weight": 8,
+      "eta": 8
+    },
+    {
+      "id": "V034",
+      "dimensions": {
+        "w": 4,
+        "l": 5
+      },
+      "shipping_fee": 50,
+      "weight": 3,
+      "eta": 11
+    },
+    {
+      "id": "V035",
+      "dimensions": {
+        "w": 5,
+        "l": 2
+      },
+      "shipping_fee": 160,
+      "weight": 15,
+      "eta": 7
+    },
+    {
+      "id": "V036",
+      "dimensions": {
+        "w": 5,
+        "l": 4
+      },
+      "shipping_fee": 380,
+      "weight": 10,
+      "eta": 11
+    },
+    {
+      "id": "V037",
+      "dimensions": {
+        "w": 2,
+        "l": 2
+      },
+      "shipping_fee": 130,
+      "weight": 11,
+      "eta": 2
+    },
+    {
+      "id": "V038",
+      "dimensions": {
+        "w": 3,
+        "l": 4
+      },
+      "shipping_fee": 50,
+      "weight": 9,
+      "eta": 7
+    },
+    {
+      "id": "V039",
+      "dimensions": {
+        "w": 2,
+        "l": 2
+      },
+      "shipping_fee": 310,
+      "weight": 5,
+      "eta": 1
+    },
+    {
+      "id": "V040",
+      "dimensions": {
+        "w": 5,
+        "l": 4
+      },
+      "shipping_fee": 320,
+      "weight": 17,
+      "eta": 6
+    },
+    {
+      "id": "V041",
+      "dimensions": {
+        "w": 5,
+        "l": 4
+      },
+      "shipping_fee": 360,
+      "weight": 10,
+      "eta": 4
+    },
+    {
+      "id": "V042",
+      "dimensions": {
+        "w": 2,
+        "l": 2
+      },
+      "shipping_fee": 390,
+      "weight": 10,
+      "eta": 2
+    },
+    {
+      "id": "V043",
+      "dimensions": {
+        "w": 5,
+        "l": 2
+      },
+      "shipping_fee": 160,
+      "weight": 6,
+      "eta": 12
+    },
+    {
+      "id": "V044",
+      "dimensions": {
+        "w": 3,
+        "l": 6
+      },
+      "shipping_fee": 230,
+      "weight": 15,
+      "eta": 12
+    },
+    {
+      "id": "V045",
+      "dimensions": {
+        "w": 3,
+        "l": 2
+      },
+      "shipping_fee": 350,
+      "weight": 17,
+      "eta": 9
+    },
+    {
+      "id": "V046",
+      "dimensions": {
+        "w": 5,
+        "l": 7
+      },
+      "shipping_fee": 220,
+      "weight": 11,
+      "eta": 6
+    },
+    {
+      "id": "V047",
+      "dimensions": {
+        "w": 2,
+        "l": 5
+      },
+      "shipping_fee": 250,
+      "weight": 15,
+      "eta": 10
+    },
+    {
+      "id": "V048",
+      "dimensions": {
+        "w": 3,
+        "l": 4
+      },
+      "shipping_fee": 190,
+      "weight": 15,
+      "eta": 2
+    },
+    {
+      "id": "V049",
+      "dimensions": {
+        "w": 2,
+        "l": 7
+      },
+      "shipping_fee": 130,
+      "weight": 15,
+      "eta": 2
+    },
+    {
+      "id": "V050",
+      "dimensions": {
+        "w": 2,
+        "l": 7
+      },
+      "shipping_fee": 150,
+      "weight": 6,
+      "eta": 8
+    }
+  ]
+}
