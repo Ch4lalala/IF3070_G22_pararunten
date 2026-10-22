@@ -41,11 +41,6 @@ def json_default(value):
         return asdict(value)
     raise TypeError(f"Tipe {type(value).__name__} tidak dapat disimpan.")
 
-def export_json(bundle):
-    """Menyertakan dataset dan hasil lengkap untuk unduhan eksperimen."""
-    return json.dumps(bundle, default=json_default, ensure_ascii=False,
-                      indent=2, allow_nan=False)
-
 def state_summary(vehicles, positions, ship):
     """Menghitung ringkasan dari state yang benar-benar ditampilkan."""
     loaded = [v for v, p in zip(vehicles, positions) if p is not None]
@@ -80,28 +75,6 @@ def normalize_result(algorithm, result, vehicles):
         "iterations": result["iterations"], "history": result["history"],
         "raw": result,
     }
-
-def load_ga_session(folder):
-    """Membaca sesi GA memakai snapshot dataset yang tersimpan di sesi itu."""
-    folder = Path(folder)
-    dataset = load_json(folder / "dataset.json")
-    vehicles, ship = make_models(dataset)
-    runs = []
-    for path in sorted(folder.glob("*/run.json")):
-        result = load_json(path)
-        for key in ["initial_population", "final_population"]:
-            result[key] = [read_positions(s) for s in result[key]]
-        result["best_individual"] = read_positions(result["best_individual"])
-        record = normalize_result("GA", result, vehicles)
-        states = result["initial_population"] + result["final_population"] + [record["final_state"]]
-        if not all(is_valid_state(vehicles, s, ship) for s in states):
-            raise ValueError(f"Ada state tidak valid pada {path.parent.name}.")
-        if calculate_objective(vehicles, record["final_state"]) != record["objective"]:
-            raise ValueError(f"Objective tidak cocok pada {path.parent.name}.")
-        runs.append(record)
-    if not runs:
-        raise ValueError("Sesi ini belum memiliki run.json lengkap.")
-    return {"dataset": dataset, "runs": runs, "source": folder.name}
 
 def result_label(run, number):
     """Membuat label pemilih percobaan, termasuk parameter GA."""
@@ -418,29 +391,3 @@ def load_session(folder):
         "folder": str(folder.resolve()), "algorithm": runs[0]["algorithm"],
         "expected_runs": expected, "status": status,
     }
-
-def comparison_rows(project_root, dataset):
-    """Membaca ringkasan sesi lengkap pada dataset sama, tanpa memuat populasi lagi."""
-    digest = dataset_digest(dataset)
-    records = []
-    for folder in list_sessions(project_root):
-        metadata_path, summary_path = folder / "session.json", folder / "summary.csv"
-        if not metadata_path.exists() or not summary_path.exists():
-            continue
-        metadata = load_json(metadata_path)
-        if metadata.get("dataset_digest") != digest or metadata["status"] != "complete":
-            continue
-        with summary_path.open(encoding="utf-8-sig", newline="") as file:
-            for row in csv.DictReader(file):
-                records.append({
-                    "Sesi": folder.name, "Algoritma": row["Algoritma"],
-                    "Seed": int(row["Seed"]), "Kelompok": row.get("Kelompok", ""),
-                    "Populasi": row.get("Jumlah populasi", ""),
-                    "Generasi": row["Jumlah iterasi"] if row["Algoritma"] == "GA" else "",
-                    "Objective": float(row["Objective hasil"]),
-                    "Durasi (s)": float(row["Durasi (detik)"]),
-                    "Cakupan durasi": row.get("Cakupan durasi") or (
-                        "search_only" if row["Algoritma"] == "HC"
-                        else "initialization_and_search"),
-                })
-    return records
