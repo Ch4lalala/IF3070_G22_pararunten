@@ -124,6 +124,9 @@ def summary_rows(runs):
             "Algoritma": run["algorithm"], "Seed": run["seed"],
             "Objective awal": initial_value, "Objective hasil": run["objective"],
             "Jumlah iterasi": run["iterations"], "Durasi (detik)": round(run["duration"], 4),
+            # Arsip HC lama hanya mengukur pencarian, tanpa inisialisasi.
+            "Cakupan durasi": raw.get("duration_scope",
+                "search_only" if run["algorithm"] == "HC" else "initialization_and_search"),
         }
         if is_ga:
             row.update({
@@ -333,10 +336,10 @@ def save_run(record, folder):
 
 
 def list_sessions(project_root):
-    """Mencari hasil HC/GA baru dan arsip dari struktur lama."""
+    """Mencari arsip HC, SA, dan GA yang sudah memiliki hasil run."""
     project_root = Path(project_root)
     folders = []
-    for name in ["hill_climbing", "genetic_algorithm"]:
+    for name in ["hill_climbing", "simulated_annealing", "genetic_algorithm"]:
         for folder in (project_root / "output" / name).glob("*"):
             if folder.is_dir() and (folder / "dataset.json").exists() and any(folder.glob("*/run.json")):
                 folders.append(folder)
@@ -420,5 +423,8 @@ def comparison_rows(project_root, dataset):
                     "Generasi": row["Jumlah iterasi"] if row["Algoritma"] == "GA" else "",
                     "Objective": float(row["Objective hasil"]),
                     "Durasi (s)": float(row["Durasi (detik)"]),
+                    "Cakupan durasi": row.get("Cakupan durasi") or (
+                        "search_only" if row["Algoritma"] == "HC"
+                        else "initialization_and_search"),
                 })
     return records

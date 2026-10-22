@@ -3,6 +3,7 @@ from src.init.operations import move, rotate, swap
 from src.init.constraints import direction_of_car, is_valid_state
 from time import perf_counter
 from src.init.objective import calculate_objective
+from src.init.initialization import generate_initial_state
 
 
 def get_neighbors(vehicles, positions, ship):
@@ -63,12 +64,18 @@ def get_neighbors(vehicles, positions, ship):
 
     return neighbors
 
-def hill_climbing(vehicles, positions, ship, rng, max_sideways=100):
-    """Hill-Climbing with Sideways Move; batas sideways berturut-turut."""
+def hill_climbing(vehicles, ship, rng, max_sideways=100, initial=None):
+    """HC dengan sideways; initial=None membuat susunan awal acak di sini."""
+    # Durasi mencakup pembuatan susunan awal dan pencarian.
     start_time = perf_counter()
 
-    initial_positions = list(positions)
-    current = list(positions)
+    if initial is None:
+        current = generate_initial_state(vehicles, ship, rng)
+    else:
+        # Salin susunan yang diberikan agar data pemanggil tidak berubah.
+        current = list(initial)
+
+    initial_positions = list(current)
     current_value = calculate_objective(vehicles, current)
     initial_objective = current_value  # Simpan nilai sebelum pencarian dimulai.
 
@@ -139,6 +146,7 @@ def hill_climbing(vehicles, positions, ship, rng, max_sideways=100):
         "iterations": iterations,
         "total_sideways": total_sideways,
         "duration": duration,
+        "duration_scope": "initialization_and_search" if initial is None else "search_only",
         "parameters": {"max_sideways": max_sideways},
         "stop_reason": stop_reason,
     }

@@ -209,6 +209,7 @@ def simulated_annealing(
         ),
         "iterations": iterations,
         "duration": duration,
+        "duration_scope": "initialization_and_search" if initial is None else "search_only",
         "stop_reason": stop_reason,
         "seed": seed,
         "parameters": {

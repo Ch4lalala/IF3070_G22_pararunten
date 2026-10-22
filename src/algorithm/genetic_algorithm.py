@@ -159,4 +159,5 @@ def run_genetic_algorithm(
         "iterations": generations,
         "mutation_rate": mutation_rate,
         "duration_seconds": duration,
+        "duration_scope": "initialization_and_search",
     }
