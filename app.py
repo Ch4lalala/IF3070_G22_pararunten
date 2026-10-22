@@ -10,16 +10,18 @@ from src.algorithm.genetic_algorithm import generate_population
 from src.init.initialization import generate_initial_state
 from src.init.objective import calculate_objective
 from src.result_io import (
-    load_json, make_models, state_summary, summary_rows,
+    load_json, make_models, state_summary,
     list_sessions, load_session, session_label,
 )
 from src.visualization.ship_scene import ship_scene
-from src.visualization.reports import result_panel
-from src.experiments import (
-    default_variations, execute_experiment, parse_variations,
+from src.visualization.reports import required_summary_rows, result_panel
+from main import (
+    default_variations, execute_experiment, get_default_parameters, parse_variations,
 )
 
 ROOT = Path(__file__).resolve().parent
+ALGORITHMS = {"HC": "Hill-Climbing", "SA": "Simulated Annealing", "GA": "Genetic Algorithm"}
+SA_CONTROLS = {"T0": "sa_T0", "alpha": "sa_alpha", "T_min": "sa_T_min", "max_iter": "sa_max_iter"}
 st.set_page_config(page_title="Pararunten | Penataan Kapal", page_icon="🚢",
                    layout="wide", initial_sidebar_state="collapsed")
 
@@ -51,13 +53,13 @@ def read_archive(folder, version):
 
 
 def menus():
-    """Memilih arsip HC/GA dan parameter eksperimen sesuai Cakupan."""
-    brand, settings, archives, details = st.columns([5, 1.3, 1.1, 1.1])
+    """Memilih arsip dan parameter HC, SA, atau GA."""
+    brand, settings, archives = st.columns([6, 1.3, 1.1])
     with brand:
         st.html('<div class="top-brand">PARARUNTEN<span>IF3070 · KELOMPOK 22</span></div>')
     with archives:
         with st.popover("Arsip", use_container_width=True):
-            st.markdown("#### Hasil eksperimen HC / GA")
+            st.markdown("#### Hasil eksperimen HC / SA / GA")
             folders = list_sessions(ROOT)
             if folders:
                 folder = st.selectbox("Sesi tersimpan", folders, format_func=session_label)
@@ -70,12 +72,17 @@ def menus():
                         bundle = read_archive(str(folder), version)
                         clear_workspace()
                         st.session_state["archive_bundle"] = bundle
+                        algorithm = bundle["algorithm"]
                         raw = bundle["runs"][0]["raw"]
                         controls = bundle.get("parameters", {})
-                        is_ga = bundle["algorithm"] == "GA"
-                        st.session_state["algorithm"] = "Genetic Algorithm" if is_ga else "Hill-Climbing"
-                        st.session_state["seed"] = bundle.get("seeds", [raw["seed"]])[0]
-                        if is_ga:
+                        st.session_state["algorithm"] = ALGORITHMS[algorithm]
+                        st.session_state["seed"] = bundle.get("seeds", [raw.get("seed", 42)])[0]
+                        if algorithm == "HC":
+                            st.session_state["max_sideways"] = raw["parameters"]["max_sideways"]
+                        elif algorithm == "SA":
+                            for parameter, key in SA_CONTROLS.items():
+                                st.session_state[key] = raw["parameters"][parameter]
+                        else:
                             population = controls.get("population_size", raw["population_size"])
                             b_run = next((r for r in bundle["runs"] if r["group"] == "B"), bundle["runs"][0])
                             generations = controls.get("generations", b_run["iterations"])
@@ -89,68 +96,70 @@ def menus():
                                 st.session_state[f"generation_values_{generations}"] = ", ".join(map(str, values_g))
                             if len(values_p) == 3:
                                 st.session_state[f"population_values_{population}"] = ", ".join(map(str, values_p))
-                        else:
-                            st.session_state["max_sideways"] = raw["parameters"]["max_sideways"]
                         name = bundle["dataset"].get("dataset_id")
                         if name in ["small", "medium", "large"]:
                             st.session_state["dataset_name"] = name
                     except (ValueError, KeyError, TypeError, OSError) as error:
                         st.error(f"Arsip belum bisa dibuka: {error}")
-                st.caption("Hasil dibaca dari file, tanpa mengulang pencarian.")
+                st.caption("Buka hasil tersimpan tanpa mengulang pencarian.")
             else:
                 st.caption("Belum ada hasil tersimpan. Klik Mulai untuk membuat sesi.")
     with settings:
         with st.popover("Pengaturan", use_container_width=True):
             st.markdown("#### Eksperimen tugas besar")
-            st.selectbox("Dataset", ["small", "medium", "large"], key="dataset_name",
-                         on_change=clear_workspace)
-            st.number_input("Seed awal", min_value=0, value=42, step=1, key="seed",
-                            on_change=clear_workspace)
-            is_ga = st.session_state.get("algorithm") == "Genetic Algorithm"
-            if not is_ga:
+            st.selectbox("Dataset", ["small", "medium", "large"], key="dataset_name", on_change=clear_workspace)
+            st.session_state.setdefault("seed", 42)
+            st.number_input("Seed awal", min_value=0, step=1, key="seed", on_change=clear_workspace)
+            name = st.session_state.get("algorithm", ALGORITHMS["HC"])
+            algorithm = next(code for code, label in ALGORITHMS.items() if label == name)
+            defaults = get_default_parameters(algorithm)
+            if algorithm == "HC":
                 st.info("Sekali Mulai menjalankan HC sebanyak 3 kali.")
-                st.number_input("Maksimum sideways berturut-turut", 0, 10000, 100, 10,
+                st.session_state.setdefault("max_sideways", defaults["max_sideways"])
+                st.number_input("Maksimum sideways", min_value=0, max_value=10000, step=10,
                                 key="max_sideways", on_change=clear_workspace)
+            elif algorithm == "SA":
+                st.info("Sekali Mulai menjalankan SA sebanyak 3 kali.")
             else:
                 st.info("Sekali Mulai menjalankan GA sebanyak 18 kali: 9 run A + 9 run B.")
-                population = st.number_input("Populasi kontrol · kelompok A", 1, 500, 20, 1,
-                                             key="population_size", on_change=clear_workspace)
-                generations = st.number_input("Generasi kontrol · kelompok B", 1, 5000, 100, 10,
-                                              key="generations", on_change=clear_workspace)
-                st.text_input("3 variasi generasi · kelompok A",
-                              ", ".join(map(str, default_variations(generations))),
+                st.session_state.setdefault("population_size", defaults["population_size"])
+                st.session_state.setdefault("generations", defaults["generations"])
+                population = st.number_input("Populasi kontrol · kelompok A", min_value=1, max_value=500,
+                    step=1, key="population_size", on_change=clear_workspace)
+                generations = st.number_input("Generasi kontrol · kelompok B", min_value=1, max_value=5000,
+                    step=10, key="generations", on_change=clear_workspace)
+                st.text_input("3 variasi generasi · kelompok A", ", ".join(map(str, default_variations(generations))),
                               key=f"generation_values_{generations}", on_change=clear_workspace)
-                st.text_input("3 variasi populasi · kelompok B",
-                              ", ".join(map(str, default_variations(population))),
+                st.text_input("3 variasi populasi · kelompok B", ", ".join(map(str, default_variations(population))),
                               key=f"population_values_{population}", on_change=clear_workspace)
-                st.caption("Peluang mutasi eksperimen baru dipertahankan 0.1. "
-                           "Hanya populasi dan generasi yang divariasikan.")
             st.caption("Setiap konfigurasi memakai tiga seed berbeda: S, S+1, S+2. "
-                       "Semua hasil otomatis disimpan setelah masing-masing run selesai.")
-    return details
-
+                       "Hasil setiap run langsung disimpan ke output.")
 
 def configuration():
-    """Nilai kontrol; daftar variasi baru divalidasi ketika Mulai ditekan."""
+    """Mengambil hanya parameter yang diperlukan algoritma terpilih."""
     state = st.session_state
-    algorithm = "GA" if state.get("algorithm") == "Genetic Algorithm" else "HC"
-    population, generations = state.get("population_size", 20), state.get("generations", 100)
-    params = {
-        "max_sideways": state.get("max_sideways", 100),
-        "population_size": population, "generations": generations,
-        "mutation_rate": .1,
-        "generation_values": state.get(f"generation_values_{generations}",
+    algorithm = next(code for code, label in ALGORITHMS.items()
+                     if label == state.get("algorithm", ALGORITHMS["HC"]))
+    params = get_default_parameters(algorithm)
+    if algorithm == "HC":
+        params["max_sideways"] = state.get("max_sideways", params["max_sideways"])
+    elif algorithm == "SA":
+        for parameter, key in SA_CONTROLS.items():
+            params[parameter] = state.get(key, params[parameter])
+    else:
+        population = state.get("population_size", params["population_size"])
+        generations = state.get("generations", params["generations"])
+        params.update(population_size=population, generations=generations,
+            generation_values=state.get(f"generation_values_{generations}",
                                        ", ".join(map(str, default_variations(generations)))),
-        "population_values": state.get(f"population_values_{population}",
-                                       ", ".join(map(str, default_variations(population)))),
-    }
+            population_values=state.get(f"population_values_{population}",
+                                       ", ".join(map(str, default_variations(population)))))
     return algorithm, state.get("seed", 42), params
-
 
 def make_preview(dataset, algorithm, seed, parameters):
     """Membuat state awal deterministik yang sama dengan awal algoritmanya."""
     vehicles, ship = make_models(dataset)
-    signature = (dataset.get("dataset_id"), algorithm, seed, parameters["population_size"])
+    signature = (dataset.get("dataset_id"), algorithm, seed, parameters.get("population_size"))
     if st.session_state.get("preview_key") != signature:
         rng = random.Random(seed)
         if algorithm == "GA":
@@ -174,6 +183,7 @@ def search(dataset, algorithm, seed, parameters, progress_area):
         params.pop("population_values", None)
     # Arsip lama tetap di disk; klik Mulai selalu membuat sesi baru.
     st.session_state.pop("archive_bundle", None)
+    st.session_state.pop("work_bundle", None)
     with progress_area.container():
         st.html('<div id="proses-pencarian"></div>')
         with st.status("Menjalankan eksperimen", expanded=True) as status:
@@ -187,7 +197,7 @@ def search(dataset, algorithm, seed, parameters, progress_area):
                 progress.progress(count / total, text=f"{count}/{total} percobaan selesai dan dicatat")
                 message.caption(text)
                 if bundle["runs"]:
-                    table.dataframe(summary_rows(bundle["runs"]), hide_index=True,
+                    table.dataframe(required_summary_rows(bundle["runs"]), hide_index=True,
                                     use_container_width=True)
 
             try:
@@ -207,43 +217,22 @@ def search(dataset, algorithm, seed, parameters, progress_area):
     return bundle
 
 
-def detail_menu(column, bundle, run, vehicles, ship, initial):
-    """Inventaris tetap bisa dibuka tanpa menggeser tampilan kedua kapal."""
-    with column:
-        with st.popover("Detail", use_container_width=True):
-            st.markdown("#### Data kendaraan")
-            positions = run["final_state"] if run else initial
-            rows = [{
-                "ID": v.id, "Status": "Dimuat" if p is not None else "Di luar",
-                "Ukuran asli": f"{v.dimensions.w} × {v.dimensions.l}",
-                "Tarif (jt)": v.shipping_fee, "Berat": v.weight, "ETA": v.eta,
-                "Posisi": f"({p.x}, {p.y})" if p is not None else "—",
-                "Orientasi": p.orientation.value if p is not None else "—",
-            } for v, p in zip(vehicles, positions)]
-            st.dataframe(rows, hide_index=True, use_container_width=True)
-            st.caption("Sorot mobil untuk detailnya. Semua kendaraan yang tidak dimuat "
-                       "ada di parkiran; skala parkiran terpisah dari grid geladak.")
-            if run:
-                st.caption("Laporan, grafik, populasi GA, dan unduhan tersedia "
-                           "pada panel hasil di bawah tampilan kapal.")
-
-
 def main():
     """Kapal memenuhi layar awal, progres dan laporan berada di bawahnya."""
     css = (ROOT / "src" / "visualization" / "style.css").read_text(encoding="utf-8")
     st.html("<style>" + css + "</style>")
-    detail_column = menus()
+    menus()
     with st.container(key="workspace"):
         left, center, right = st.columns([4.5, 1.65, 4.5], gap="medium")
     # Placeholder berada setelah workspace, bukan di kolom kontrol yang sempit.
     progress_area = st.empty()
     with center:
         st.html('<div class="control-spacer"></div>')
-        st.selectbox("Pilih Algoritma", ["Hill-Climbing", "Genetic Algorithm"],
+        st.selectbox("Pilih Algoritma", list(ALGORITHMS.values()),
                      key="algorithm", on_change=clear_workspace,
                      label_visibility="collapsed")
         algorithm, seed, parameters = configuration()
-        total = 3 if algorithm == "HC" else 18
+        total = 18 if algorithm == "GA" else 3
         st.caption(f"Mulai = {total} percobaan")
         start = st.button("Mulai", type="primary", use_container_width=True)
         bundle = st.session_state.get("archive_bundle") or st.session_state.get("work_bundle")
@@ -276,10 +265,11 @@ def main():
                 f'{ship.dimensions.w} × {ship.dimensions.l} grid<br>Seed {shown_seed}</div>')
         if run:
             st.html('<a class="results-link" href="#hasil-pencarian">Lihat hasil ↓</a>')
-            expected = bundle.get("expected_runs", 3 if run["algorithm"] == "HC" else 18)
+            expected = bundle.get("expected_runs", 18 if run["algorithm"] == "GA" else 3)
             st.caption(f"{len(bundle['runs'])}/{expected} run tersimpan")
     with left:
-        st.html('<h2 class="state-title">INITIAL STATE</h2>')
+        initial_title = "INITIAL STATE · TERBAIK POPULASI AWAL" if algorithm == "GA" else "INITIAL STATE"
+        st.html(f'<h2 class="state-title">{initial_title}</h2>')
         show_svg(ship_scene(vehicles, initial, ship))
         st.button("Generate Initial State", on_click=regenerate,
                   use_container_width=True, key="generate")
@@ -287,7 +277,8 @@ def main():
         st.html(f'<div class="state-caption">Rp {summary["objective"]:g} jt · '
                 f'{summary["loaded"]} dimuat · {summary["outside"]} di luar</div>')
     with right:
-        st.html('<h2 class="state-title">FINAL STATE</h2>')
+        final_title = "FINAL STATE · TERBAIK DITEMUKAN" if algorithm == "GA" else "FINAL STATE"
+        st.html(f'<h2 class="state-title">{final_title}</h2>')
         show_svg(ship_scene(vehicles, run["final_state"] if run else None, ship))
         if run:
             summary = state_summary(vehicles, run["final_state"], ship)
@@ -296,7 +287,6 @@ def main():
         else:
             text = "Hasil akan muncul setelah pencarian selesai"
         st.html(f'<div class="final-caption">{text}</div>')
-    detail_menu(detail_column, bundle, run, vehicles, ship, initial)
     if run is not None:
         result_panel(bundle, run, vehicles, ship, index)
 

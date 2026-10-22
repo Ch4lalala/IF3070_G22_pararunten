@@ -1,0 +1,56 @@
+{
+  "source": "sa_20261022_210053_124532",
+  "algorithm": "SA",
+  "created_at": "2026-10-22T21:00:53.124532+07:00",
+  "status": "complete",
+  "expected_runs": 3,
+  "plan": [
+    {
+      "group": "",
+      "seed": 42,
+      "parameters": {
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 5000
+      },
+      "run_id": "SA_seed-42"
+    },
+    {
+      "group": "",
+      "seed": 43,
+      "parameters": {
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 5000
+      },
+      "run_id": "SA_seed-43"
+    },
+    {
+      "group": "",
+      "seed": 44,
+      "parameters": {
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 5000
+      },
+      "run_id": "SA_seed-44"
+    }
+  ],
+  "dataset_digest": "4387e76feb3b4d07564266a0214bc0a26475aa3109358dbc00cbc575fa1d1681",
+  "parameters": {
+    "T0": 100,
+    "alpha": 0.999,
+    "T_min": 0.1,
+    "max_iter": 5000
+  },
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "schema_version": 1,
+  "completed_runs": 3
+}

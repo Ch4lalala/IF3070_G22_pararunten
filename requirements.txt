@@ -2,5 +2,5 @@
 streamlit>=1.45,<2
 plotly>=5.24,<7
 
-# Grafik eksperimen yang sudah ada di main.py dan ga_test.py
+# Grafik PNG hasil eksperimen
 matplotlib>=3.9,<4

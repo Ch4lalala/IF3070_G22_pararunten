@@ -1,0 +1,252 @@
+{
+  "initial_state": [
+    {
+      "x": 0,
+      "y": 0,
+      "orientation": "vertical"
+    },
+    null,
+    null,
+    null,
+    {
+      "x": 5,
+      "y": 4,
+      "orientation": "horizontal"
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "orientation": "vertical"
+    },
+    null,
+    null,
+    null,
+    null,
+    {
+      "x": 0,
+      "y": 5,
+      "orientation": "horizontal"
+    },
+    {
+      "x": 7,
+      "y": 4,
+      "orientation": "horizontal"
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    {
+      "x": 10,
+      "y": 1,
+      "orientation": "horizontal"
+    },
+    null,
+    {
+      "x": 5,
+      "y": 0,
+      "orientation": "horizontal"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "orientation": "vertical"
+    },
+    null,
+    {
+      "x": 2,
+      "y": 4,
+      "orientation": "horizontal"
+    }
+  ],
+  "initial_objective": 2080.0,
+  "final_state": [
+    {
+      "x": 0,
+      "y": 3,
+      "orientation": "vertical"
+    },
+    null,
+    null,
+    null,
+    {
+      "x": 0,
+      "y": 0,
+      "orientation": "horizontal"
+    },
+    null,
+    null,
+    null,
+    {
+      "x": 10,
+      "y": 1,
+      "orientation": "horizontal"
+    },
+    {
+      "x": 4,
+      "y": 8,
+      "orientation": "vertical"
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "orientation": "horizontal"
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    {
+      "x": 0,
+      "y": 8,
+      "orientation": "vertical"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "orientation": "horizontal"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "orientation": "vertical"
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "orientation": "horizontal"
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "orientation": "vertical"
+    }
+  ],
+  "final_objective": 3080.0,
+  "history": [
+    2080.0,
+    2290.0,
+    2690.0,
+    2760.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0,
+    3080.0
+  ],
+  "iterations": 104,
+  "total_sideways": 100,
+  "sideways_limit_scope": "consecutive",
+  "duration": 8.433058700000402,
+  "duration_scope": "initialization_and_search",
+  "parameters": {
+    "max_sideways": 100
+  },
+  "stop_reason": "sideways_limit",
+  "seed": 1,
+  "group": "",
+  "run_id": "HC_seed-1",
+  "algorithm": "HC"
+}

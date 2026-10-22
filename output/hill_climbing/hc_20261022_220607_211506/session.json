@@ -1,0 +1,44 @@
+{
+  "source": "hc_20261022_220607_211506",
+  "algorithm": "HC",
+  "created_at": "2026-10-22T22:06:07.211506+07:00",
+  "status": "complete",
+  "expected_runs": 3,
+  "plan": [
+    {
+      "group": "",
+      "seed": 0,
+      "parameters": {
+        "max_sideways": 100
+      },
+      "run_id": "HC_seed-0"
+    },
+    {
+      "group": "",
+      "seed": 1,
+      "parameters": {
+        "max_sideways": 100
+      },
+      "run_id": "HC_seed-1"
+    },
+    {
+      "group": "",
+      "seed": 2,
+      "parameters": {
+        "max_sideways": 100
+      },
+      "run_id": "HC_seed-2"
+    }
+  ],
+  "dataset_digest": "4387e76feb3b4d07564266a0214bc0a26475aa3109358dbc00cbc575fa1d1681",
+  "parameters": {
+    "max_sideways": 100
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "schema_version": 1,
+  "completed_runs": 3
+}

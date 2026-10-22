@@ -42,3 +42,17 @@ Grafik gabungan tetap dibuat pada folder sesi, sejajar dengan summary.csv:
 
 Dengan ALGORITHM = "all", main.py menjalankan tiga HC, tiga SA, dan delapan belas GA.
 Dataset mengikuti nilai DATASET di main.py.
+
+## Cakupan durasi
+
+Run baru melalui main.py menyimpan duration_scope = "initialization_and_search"
+di run.json. Durasi mencakup pembuatan state/populasi awal serta pencarian
+untuk HC, SA, dan GA. Validasi hasil, penulisan berkas, dan plot berada di luar timer.
+summary.csv juga memuat kolom Cakupan durasi.
+
+Arsip lama tetap dipertahankan. HC lama hanya mencatat waktu pencarian
+(search_only); SA/GA lama sudah mencakup inisialisasi. Jalankan ulang HC
+untuk memperoleh durasi dengan cakupan yang sama. Pembaca ringkasan memberi
+label cakupan tersebut pada arsip lama tanpa mengubah berkas aslinya.
+
+list_sessions() mencari ketiga folder algoritma, termasuk simulated_annealing/.

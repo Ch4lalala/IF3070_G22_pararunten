@@ -1,0 +1,19 @@
+﻿Percobaan,Run ID,Algoritma,Seed,Objective awal,Objective hasil,Jumlah iterasi,Durasi (detik),Cakupan durasi,Kelompok,Jumlah populasi,Peluang mutasi,Maksimum populasi akhir,Rata-rata populasi akhir
+1,A_pop-20_iter-50_seed-42,GA,42,400.0,400.0,50,1.8932,initialization_and_search,A,20,0.1,400.0,347.0
+2,A_pop-20_iter-50_seed-43,GA,43,400.0,400.0,50,1.6697,initialization_and_search,A,20,0.1,400.0,357.5
+3,A_pop-20_iter-50_seed-44,GA,44,400.0,400.0,50,1.362,initialization_and_search,A,20,0.1,400.0,361.0
+4,A_pop-20_iter-100_seed-42,GA,42,400.0,400.0,100,2.7509,initialization_and_search,A,20,0.1,400.0,343.0
+5,A_pop-20_iter-100_seed-43,GA,43,400.0,400.0,100,3.0681,initialization_and_search,A,20,0.1,400.0,338.0
+6,A_pop-20_iter-100_seed-44,GA,44,400.0,400.0,100,2.9685,initialization_and_search,A,20,0.1,400.0,375.0
+7,A_pop-20_iter-200_seed-42,GA,42,400.0,400.0,200,5.7291,initialization_and_search,A,20,0.1,400.0,369.0
+8,A_pop-20_iter-200_seed-43,GA,43,400.0,400.0,200,5.6605,initialization_and_search,A,20,0.1,400.0,354.5
+9,A_pop-20_iter-200_seed-44,GA,44,400.0,400.0,200,4.6551,initialization_and_search,A,20,0.1,400.0,325.0
+10,B_pop-10_iter-100_seed-42,GA,42,390.0,400.0,100,1.1082,initialization_and_search,B,10,0.1,390.0,375.0
+11,B_pop-10_iter-100_seed-43,GA,43,400.0,400.0,100,1.4996,initialization_and_search,B,10,0.1,400.0,343.0
+12,B_pop-10_iter-100_seed-44,GA,44,400.0,400.0,100,1.5014,initialization_and_search,B,10,0.1,380.0,323.0
+13,B_pop-20_iter-100_seed-42,GA,42,400.0,400.0,100,3.0169,initialization_and_search,B,20,0.1,400.0,343.0
+14,B_pop-20_iter-100_seed-43,GA,43,400.0,400.0,100,2.6717,initialization_and_search,B,20,0.1,400.0,338.0
+15,B_pop-20_iter-100_seed-44,GA,44,400.0,400.0,100,2.879,initialization_and_search,B,20,0.1,400.0,375.0
+16,B_pop-40_iter-100_seed-42,GA,42,400.0,400.0,100,5.5991,initialization_and_search,B,40,0.1,400.0,351.5
+17,B_pop-40_iter-100_seed-43,GA,43,400.0,400.0,100,5.2448,initialization_and_search,B,40,0.1,400.0,357.5
+18,B_pop-40_iter-100_seed-44,GA,44,400.0,400.0,100,5.824,initialization_and_search,B,40,0.1,400.0,345.75
