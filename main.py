@@ -11,7 +11,6 @@ from src.algorithm.hill_climbing import hill_climbing
 from src.algorithm.simulated_annealing import simulated_annealing
 from src.algorithm.genetic_algorithm import run_genetic_algorithm
 from src.init.constraints import is_valid_state
-from src.init.initialization import generate_initial_state
 from src.init.objective import calculate_objective
 from src.result_io import (
     dataset_digest, load_json, make_models, normalize_result,
@@ -128,9 +127,10 @@ def run_search(algorithm, dataset, seed, parameters, group=""):
     vehicles, ship = make_models(dataset)
     rng = random.Random(seed)
     if algorithm == "HC":
-        positions = generate_initial_state(vehicles, ship, rng)
-        result = hill_climbing(vehicles, positions, ship, rng,
-                               max_sideways=parameters["max_sideways"])
+        result = hill_climbing(
+            vehicles=vehicles, ship=ship, rng=rng,
+            max_sideways=parameters["max_sideways"],
+        )
     elif algorithm == "SA":
         result = simulated_annealing(
             vehicles, ship, T0=parameters["T0"], alpha=parameters["alpha"],
@@ -375,7 +375,7 @@ def main():
         print(f"{result['algorithm'].upper()} | Seed {result['seed']} | "
               f"Awal: {calculate_objective(vehicles, initial):g} | Hasil: {value:g} | "
               f"Iterasi: {result['iterations']} | Durasi: {duration:.4f} s")
-    print("\nDurasi HC di luar inisialisasi. SA dan GA mencakup inisialisasi internal.")
+    print("\nDurasi HC, SA, dan GA mencakup inisialisasi dan pencarian.")
     print("Durasi tidak mencakup penulisan berkas dan pembuatan PNG.")
     if SHOW_PLOT:
         plot_objective(results)
@@ -384,3 +384,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

@@ -192,7 +192,8 @@ class AlgorithmTests(unittest.TestCase):
                 rng = random.Random(seed)
                 initial = generate_initial_state(vehicles, ship, rng)
                 original = initial.copy()
-                result = hill_climbing(vehicles, initial, ship, rng, max_sideways=5)
+                result = hill_climbing(vehicles=vehicles, ship=ship, rng=rng,
+                                       max_sideways=5, initial=initial)
                 self.assertEqual(initial, original)
                 self.check_hc(vehicles, ship, result)
 
@@ -201,12 +202,28 @@ class AlgorithmTests(unittest.TestCase):
         ship = Ship(Dimension(2, 1), 1)
         for limit in (0, 3):
             with self.subTest(limit=limit):
-                result = hill_climbing(vehicles, [Position(0, 0, H)], ship,
-                                       random.Random(42), max_sideways=limit)
+                result = hill_climbing(vehicles=vehicles, ship=ship,
+                                       rng=random.Random(42), max_sideways=limit,
+                                       initial=[Position(0, 0, H)])
                 self.assertEqual(result["iterations"], limit)
                 self.assertEqual(result["total_sideways"], limit)
                 self.assertEqual(result["stop_reason"], "sideways_limit")
                 self.check_hc(vehicles, ship, result)
+
+    def test_terminal_hc_initializes_once_and_uses_current_signature(self):
+        """Runner HC membuat initial state sekali, di dalam timer algoritma."""
+        runner = importlib.import_module("main")
+        dataset = json.loads((ROOT / "data/small.json").read_text(encoding="utf-8-sig"))
+        vehicles, ship = load_small()
+        with patch("src.algorithm.hill_climbing.generate_initial_state",
+                   wraps=generate_initial_state) as initialize:
+            record = runner.run_search("HC", dataset, 42, {"max_sideways": 2})
+        initialize.assert_called_once()
+        expected = generate_initial_state(vehicles, ship, random.Random(42))
+        self.assertEqual(record["initial_state"], expected)
+        self.assertEqual(record["raw"]["duration_scope"], "initialization_and_search")
+        self.assertEqual(record["raw"]["sideways_limit_scope"], "consecutive")
+        self.check_hc(vehicles, ship, record["raw"])
 
     def test_hc_sideways_resets_after_improvement(self):
         vehicles = [vehicle("A", 10), vehicle("B", 20)]
@@ -220,9 +237,11 @@ class AlgorithmTests(unittest.TestCase):
         ]
         with patch("src.algorithm.hill_climbing.get_neighbors",
                    side_effect=[[state] for state in states[1:]]):
-            result = hill_climbing(vehicles, states[0], ship, random.Random(42), max_sideways=2)
+            result = hill_climbing(vehicles=vehicles, ship=ship, rng=random.Random(42),
+                                   max_sideways=2, initial=states[0])
         self.assertEqual(result["history"], [10, 10, 30, 30, 30])
         self.assertEqual(result["total_sideways"], 3)
+        self.assertEqual(result["sideways_limit_scope"], "consecutive")
         self.check_hc(vehicles, ship, result)
 
     def test_hc_rejects_lower_objective(self):
@@ -231,7 +250,8 @@ class AlgorithmTests(unittest.TestCase):
         initial = [None, Position(0, 0, H)]
         lower = [Position(0, 0, H), None]
         with patch("src.algorithm.hill_climbing.get_neighbors", return_value=[lower]):
-            result = hill_climbing(vehicles, initial, ship, random.Random(42))
+            result = hill_climbing(vehicles=vehicles, ship=ship,
+                                   rng=random.Random(42), initial=initial)
         self.assertEqual(result["final_state"], initial)
         self.assertEqual(result["iterations"], 0)
         self.assertEqual(result["stop_reason"], "local_optimum")
@@ -240,7 +260,8 @@ class AlgorithmTests(unittest.TestCase):
         ship = Ship(Dimension(1, 1), 1)
         for vehicles in ([], [vehicle("A", w=2, length=2)]):
             with self.subTest(vehicles=vehicles):
-                result = hill_climbing(vehicles, [None] * len(vehicles), ship, random.Random(42))
+                result = hill_climbing(vehicles=vehicles, ship=ship,
+                                       rng=random.Random(42), initial=[None] * len(vehicles))
                 self.assertEqual(result["stop_reason"], "no_valid_neighbor")
                 self.check_hc(vehicles, ship, result)
 
@@ -407,8 +428,9 @@ class AlgorithmTests(unittest.TestCase):
         vehicles = [vehicle("A", 10), vehicle("B", 20)]
         ship = Ship(Dimension(2, 2), 2)
         runners = {
-            "HC": (lambda: hill_climbing(vehicles, [None, None], ship,
-                                         random.Random(42), max_sideways=3), "duration"),
+            "HC": (lambda: hill_climbing(vehicles=vehicles, ship=ship,
+                                         rng=random.Random(42), max_sideways=3,
+                                         initial=[None, None]), "duration"),
             "SA": (lambda: simulated_annealing(vehicles, ship, seed=42, max_iter=20), "duration"),
             "GA": (lambda: run_genetic_algorithm(vehicles, ship, 3, 4, 0.1,
                                                  random.Random(42)), "duration_seconds"),
@@ -423,3 +445,4 @@ class AlgorithmTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+

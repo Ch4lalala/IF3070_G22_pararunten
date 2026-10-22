@@ -135,7 +135,8 @@ Unduhan JSON lengkap dan CSV juga tersedia di dashboard.
   karena algoritma belum menyimpan snapshot state pada setiap langkah.
 - Hitungan sideways HC berturut-turut direset setelah peningkatan objective;
   total_sideways menghitung seluruh langkah sideways.
-- Durasi HC mengecualikan inisialisasi; durasi GA memasukkan populasi awal.
+- Durasi eksperimen baru HC, SA, dan GA mencakup inisialisasi dan pencarian.
+  Jika initial state diberikan langsung ke HC/SA, duration_scope bernilai search_only.
   Penulisan arsip dan grafik tidak dimasukkan ke durasi algoritma.
 - Perbandingan memakai snapshot dataset identik. Solusi terbaik yang ditemukan
   tidak otomatis membuktikan global optimum.
@@ -180,7 +181,7 @@ SHOW_PLOT = False
 
 Setiap run langsung disimpan ke folder algoritmanya dalam output/.
 Dataset medium/large dapat memerlukan waktu lebih lama, terutama pemeriksaan
-tetangga. Durasi HC di luar inisialisasi; SA/GA mencakup inisialisasi internal.
+tetangga. Durasi HC/SA/GA mencakup inisialisasi internal dan pencarian.
 Durasi tidak mencakup penulisan berkas atau pembuatan grafik PNG.
 
 ## Plot setiap run dan grafik gabungan
@@ -269,3 +270,4 @@ src/visualization/
 .streamlit/config.toml         # Tema dan server lokal
 requirements.txt               # Dependensi Python
 ```
+

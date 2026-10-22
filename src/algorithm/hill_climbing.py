@@ -65,7 +65,7 @@ def get_neighbors(vehicles, positions, ship):
     return neighbors
 
 def hill_climbing(vehicles, ship, rng, max_sideways=100, initial=None):
-    """HC dengan batas total sideways; initial=None membuat susunan awal acak."""
+    """HC dengan batas sideways berturut-turut; peningkatan mereset hitungan."""
     # Durasi mencakup pembuatan susunan awal dan pencarian.
     start_time = perf_counter()
 
@@ -79,7 +79,8 @@ def hill_climbing(vehicles, ship, rng, max_sideways=100, initial=None):
     current_value = calculate_objective(vehicles, current)
     initial_objective = current_value  # Simpan nilai sebelum pencarian dimulai.
 
-    total_sideways = 0  # Tidak direset setelah objective meningkat.
+    consecutive_sideways = 0
+    total_sideways = 0  # Statistik seluruh sideways selama pencarian.
     iterations = 0     
     history = [current_value]  #Nilai awal pada iterasi 0
 
@@ -111,11 +112,15 @@ def hill_climbing(vehicles, ship, rng, max_sideways=100, initial=None):
 
         if best_value == current_value:
             #Kandidat sama nilainya: gunakan jatah sideways
-            if total_sideways >= max_sideways:
+            if consecutive_sideways >= max_sideways:
                 stop_reason = "sideways_limit"
                 break
 
+            consecutive_sideways += 1
             total_sideways += 1
+
+        else:
+            consecutive_sideways = 0
 
         # Pilih acak jika beberapa kandidat memiliki nilai terbaik sama.
         current = rng.choice(best_neighbors)
@@ -125,7 +130,7 @@ def hill_climbing(vehicles, ship, rng, max_sideways=100, initial=None):
         history.append(current_value)
 
         #Hentikan setelah batas sideways tercapai
-        if total_sideways > 0 and total_sideways >= max_sideways:
+        if consecutive_sideways > 0 and consecutive_sideways >= max_sideways:
             stop_reason = "sideways_limit"
             break
 
@@ -139,9 +144,10 @@ def hill_climbing(vehicles, ship, rng, max_sideways=100, initial=None):
         "history": history,
         "iterations": iterations,
         "total_sideways": total_sideways,
-        "sideways_limit_scope": "total",
+        "sideways_limit_scope": "consecutive",
         "duration": duration,
         "duration_scope": "initialization_and_search" if initial is None else "search_only",
         "parameters": {"max_sideways": max_sideways},
         "stop_reason": stop_reason,
     }
+
