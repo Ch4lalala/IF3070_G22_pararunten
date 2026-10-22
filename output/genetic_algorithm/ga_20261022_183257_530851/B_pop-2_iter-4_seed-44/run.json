@@ -1,0 +1,164 @@
+{
+  "initial_population": [
+    [
+      null,
+      {
+        "x": 2,
+        "y": 3,
+        "orientation": "vertical"
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "orientation": "horizontal"
+      },
+      {
+        "x": 0,
+        "y": 2,
+        "orientation": "vertical"
+      },
+      null,
+      {
+        "x": 0,
+        "y": 4,
+        "orientation": "horizontal"
+      },
+      null,
+      null
+    ],
+    [
+      null,
+      {
+        "x": 0,
+        "y": 0,
+        "orientation": "vertical"
+      },
+      {
+        "x": 3,
+        "y": 0,
+        "orientation": "vertical"
+      },
+      {
+        "x": 2,
+        "y": 4,
+        "orientation": "vertical"
+      },
+      null,
+      {
+        "x": 4,
+        "y": 5,
+        "orientation": "vertical"
+      },
+      null,
+      null
+    ]
+  ],
+  "final_population": [
+    [
+      null,
+      {
+        "x": 3,
+        "y": 1,
+        "orientation": "horizontal"
+      },
+      {
+        "x": 2,
+        "y": 4,
+        "orientation": "horizontal"
+      },
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      {
+        "x": 2,
+        "y": 4,
+        "orientation": "vertical"
+      },
+      null,
+      null,
+      {
+        "x": 1,
+        "y": 0,
+        "orientation": "vertical"
+      },
+      {
+        "x": 2,
+        "y": 2,
+        "orientation": "horizontal"
+      },
+      {
+        "x": 0,
+        "y": 3,
+        "orientation": "horizontal"
+      },
+      null,
+      null
+    ]
+  ],
+  "best_individual": [
+    {
+      "x": 2,
+      "y": 1,
+      "orientation": "vertical"
+    },
+    null,
+    {
+      "x": 1,
+      "y": 4,
+      "orientation": "horizontal"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "orientation": "vertical"
+    },
+    null,
+    {
+      "x": 4,
+      "y": 4,
+      "orientation": "horizontal"
+    },
+    null,
+    null
+  ],
+  "best_objective": 400.0,
+  "history": [
+    {
+      "iteration": 0,
+      "maximum": 390.0,
+      "average": 390.0
+    },
+    {
+      "iteration": 1,
+      "maximum": 390.0,
+      "average": 385.0
+    },
+    {
+      "iteration": 2,
+      "maximum": 400.0,
+      "average": 395.0
+    },
+    {
+      "iteration": 3,
+      "maximum": 380.0,
+      "average": 375.0
+    },
+    {
+      "iteration": 4,
+      "maximum": 360.0,
+      "average": 305.0
+    }
+  ],
+  "population_size": 2,
+  "iterations": 4,
+  "mutation_rate": 0.1,
+  "duration_seconds": 0.029665799986105412,
+  "seed": 44,
+  "group": "B",
+  "run_id": "B_pop-2_iter-4_seed-44",
+  "algorithm": "GA"
+}

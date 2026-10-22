@@ -1,0 +1,252 @@
+{
+  "initial_state": [
+    null,
+    null,
+    null,
+    null,
+    {
+      "x": 1,
+      "y": 0,
+      "orientation": "horizontal"
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "orientation": "vertical"
+    },
+    null,
+    null,
+    null,
+    null,
+    {
+      "x": 3,
+      "y": 1,
+      "orientation": "horizontal"
+    },
+    null,
+    null,
+    null,
+    {
+      "x": 6,
+      "y": 4,
+      "orientation": "horizontal"
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "orientation": "vertical"
+    },
+    null,
+    null,
+    {
+      "x": 0,
+      "y": 7,
+      "orientation": "horizontal"
+    },
+    null,
+    null,
+    {
+      "x": 4,
+      "y": 8,
+      "orientation": "horizontal"
+    },
+    null,
+    {
+      "x": 0,
+      "y": 3,
+      "orientation": "vertical"
+    }
+  ],
+  "final_state": [
+    {
+      "x": 3,
+      "y": 8,
+      "orientation": "horizontal"
+    },
+    null,
+    null,
+    {
+      "x": 6,
+      "y": 0,
+      "orientation": "vertical"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "orientation": "horizontal"
+    },
+    null,
+    null,
+    null,
+    null,
+    {
+      "x": 1,
+      "y": 6,
+      "orientation": "vertical"
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "orientation": "horizontal"
+    },
+    null,
+    null,
+    null,
+    {
+      "x": 2,
+      "y": 1,
+      "orientation": "horizontal"
+    },
+    null,
+    null,
+    null,
+    {
+      "x": 0,
+      "y": 0,
+      "orientation": "horizontal"
+    },
+    {
+      "x": 10,
+      "y": 3,
+      "orientation": "horizontal"
+    },
+    null,
+    {
+      "x": 6,
+      "y": 3,
+      "orientation": "horizontal"
+    },
+    {
+      "x": 9,
+      "y": 7,
+      "orientation": "vertical"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "orientation": "vertical"
+    }
+  ],
+  "final_objective": 2720.0,
+  "history": [
+    1750.0,
+    2030.0,
+    2230.0,
+    2420.0,
+    2590.0,
+    2630.0,
+    2630.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0,
+    2720.0
+  ],
+  "iterations": 107,
+  "total_sideways": 101,
+  "duration": 7.7319748000008985,
+  "parameters": {
+    "max_sideways": 100
+  },
+  "stop_reason": "sideways_limit",
+  "seed": 42,
+  "group": "",
+  "run_id": "HC_seed-42",
+  "algorithm": "HC"
+}

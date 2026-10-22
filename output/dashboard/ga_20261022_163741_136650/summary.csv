@@ -1,0 +1,9 @@
+﻿Percobaan,Run ID,Algoritma,Seed,Objective awal,Objective hasil,Jumlah iterasi,Durasi (detik),Kelompok,Jumlah populasi,Peluang mutasi,Maksimum populasi akhir,Rata-rata populasi akhir
+1,A_pop-20_iter-50_seed-42,GA,42,2460.0,2760.0,50,17.347,A,20,0.1,2340.0,1907.0
+2,A_pop-20_iter-50_seed-43,GA,43,2390.0,2690.0,50,19.3917,A,20,0.1,2620.0,1928.0
+3,A_pop-20_iter-50_seed-44,GA,44,2360.0,2710.0,50,17.9564,A,20,0.1,2360.0,1856.0
+4,A_pop-20_iter-100_seed-42,GA,42,2460.0,2760.0,100,33.9269,A,20,0.1,2540.0,1929.5
+5,A_pop-20_iter-100_seed-43,GA,43,2390.0,2690.0,100,33.5537,A,20,0.1,2500.0,2009.5
+6,A_pop-20_iter-100_seed-44,GA,44,2360.0,2730.0,100,36.5893,A,20,0.1,2460.0,1783.5
+7,A_pop-20_iter-200_seed-42,GA,42,2460.0,2760.0,200,68.6827,A,20,0.1,2450.0,1905.0
+8,A_pop-20_iter-200_seed-43,GA,43,2390.0,2710.0,200,71.5484,A,20,0.1,2340.0,1848.0

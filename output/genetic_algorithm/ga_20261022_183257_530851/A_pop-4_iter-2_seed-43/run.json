@@ -1,0 +1,266 @@
+{
+  "initial_population": [
+    [
+      null,
+      {
+        "x": 0,
+        "y": 4,
+        "orientation": "vertical"
+      },
+      null,
+      {
+        "x": 2,
+        "y": 0,
+        "orientation": "horizontal"
+      },
+      {
+        "x": 3,
+        "y": 0,
+        "orientation": "vertical"
+      },
+      {
+        "x": 1,
+        "y": 2,
+        "orientation": "horizontal"
+      },
+      null,
+      null
+    ],
+    [
+      null,
+      {
+        "x": 1,
+        "y": 0,
+        "orientation": "vertical"
+      },
+      null,
+      {
+        "x": 1,
+        "y": 2,
+        "orientation": "vertical"
+      },
+      {
+        "x": 4,
+        "y": 3,
+        "orientation": "vertical"
+      },
+      {
+        "x": 0,
+        "y": 3,
+        "orientation": "horizontal"
+      },
+      null,
+      null
+    ],
+    [
+      {
+        "x": 2,
+        "y": 4,
+        "orientation": "vertical"
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "orientation": "vertical"
+      },
+      null,
+      null,
+      {
+        "x": 0,
+        "y": 2,
+        "orientation": "vertical"
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "orientation": "horizontal"
+      },
+      null,
+      null
+    ],
+    [
+      {
+        "x": 1,
+        "y": 3,
+        "orientation": "vertical"
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "orientation": "horizontal"
+      },
+      null,
+      {
+        "x": 4,
+        "y": 0,
+        "orientation": "horizontal"
+      },
+      null,
+      {
+        "x": 0,
+        "y": 0,
+        "orientation": "horizontal"
+      },
+      null,
+      null
+    ]
+  ],
+  "final_population": [
+    [
+      {
+        "x": 0,
+        "y": 1,
+        "orientation": "horizontal"
+      },
+      {
+        "x": 1,
+        "y": 4,
+        "orientation": "vertical"
+      },
+      null,
+      null,
+      {
+        "x": 4,
+        "y": 0,
+        "orientation": "horizontal"
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "orientation": "horizontal"
+      },
+      null,
+      null
+    ],
+    [
+      {
+        "x": 1,
+        "y": 3,
+        "orientation": "vertical"
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "orientation": "horizontal"
+      },
+      null,
+      {
+        "x": 4,
+        "y": 0,
+        "orientation": "horizontal"
+      },
+      null,
+      {
+        "x": 0,
+        "y": 5,
+        "orientation": "vertical"
+      },
+      null,
+      null
+    ],
+    [
+      {
+        "x": 3,
+        "y": 2,
+        "orientation": "vertical"
+      },
+      {
+        "x": 1,
+        "y": 4,
+        "orientation": "vertical"
+      },
+      null,
+      {
+        "x": 1,
+        "y": 1,
+        "orientation": "vertical"
+      },
+      null,
+      {
+        "x": 0,
+        "y": 3,
+        "orientation": "vertical"
+      },
+      null,
+      null
+    ],
+    [
+      null,
+      {
+        "x": 3,
+        "y": 0,
+        "orientation": "vertical"
+      },
+      {
+        "x": 2,
+        "y": 2,
+        "orientation": "horizontal"
+      },
+      {
+        "x": 0,
+        "y": 5,
+        "orientation": "vertical"
+      },
+      null,
+      {
+        "x": 1,
+        "y": 2,
+        "orientation": "horizontal"
+      },
+      null,
+      null
+    ]
+  ],
+  "best_individual": [
+    null,
+    {
+      "x": 3,
+      "y": 0,
+      "orientation": "vertical"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "orientation": "horizontal"
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "orientation": "vertical"
+    },
+    null,
+    {
+      "x": 1,
+      "y": 2,
+      "orientation": "horizontal"
+    },
+    null,
+    null
+  ],
+  "best_objective": 390.0,
+  "history": [
+    {
+      "iteration": 0,
+      "maximum": 380.0,
+      "average": 362.5
+    },
+    {
+      "iteration": 1,
+      "maximum": 380.0,
+      "average": 370.0
+    },
+    {
+      "iteration": 2,
+      "maximum": 390.0,
+      "average": 377.5
+    }
+  ],
+  "population_size": 4,
+  "iterations": 2,
+  "mutation_rate": 0.1,
+  "duration_seconds": 0.04000069998437539,
+  "seed": 43,
+  "group": "A",
+  "run_id": "A_pop-4_iter-2_seed-43",
+  "algorithm": "GA"
+}

@@ -1,0 +1,487 @@
+{
+  "source": "ga_20261022_183257_530851",
+  "algorithm": "GA",
+  "created_at": "2026-10-22T18:32:57.530851+07:00",
+  "status": "complete",
+  "expected_runs": 18,
+  "plan": [
+    {
+      "group": "A",
+      "seed": 42,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 4,
+        "generations": 2,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "A_pop-4_iter-2_seed-42"
+    },
+    {
+      "group": "A",
+      "seed": 43,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 4,
+        "generations": 2,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "A_pop-4_iter-2_seed-43"
+    },
+    {
+      "group": "A",
+      "seed": 44,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 4,
+        "generations": 2,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "A_pop-4_iter-2_seed-44"
+    },
+    {
+      "group": "A",
+      "seed": 42,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 4,
+        "generations": 4,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "A_pop-4_iter-4_seed-42"
+    },
+    {
+      "group": "A",
+      "seed": 43,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 4,
+        "generations": 4,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "A_pop-4_iter-4_seed-43"
+    },
+    {
+      "group": "A",
+      "seed": 44,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 4,
+        "generations": 4,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "A_pop-4_iter-4_seed-44"
+    },
+    {
+      "group": "A",
+      "seed": 42,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 4,
+        "generations": 6,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "A_pop-4_iter-6_seed-42"
+    },
+    {
+      "group": "A",
+      "seed": 43,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 4,
+        "generations": 6,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "A_pop-4_iter-6_seed-43"
+    },
+    {
+      "group": "A",
+      "seed": 44,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 4,
+        "generations": 6,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "A_pop-4_iter-6_seed-44"
+    },
+    {
+      "group": "B",
+      "seed": 42,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 2,
+        "generations": 4,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "B_pop-2_iter-4_seed-42"
+    },
+    {
+      "group": "B",
+      "seed": 43,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 2,
+        "generations": 4,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "B_pop-2_iter-4_seed-43"
+    },
+    {
+      "group": "B",
+      "seed": 44,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 2,
+        "generations": 4,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "B_pop-2_iter-4_seed-44"
+    },
+    {
+      "group": "B",
+      "seed": 42,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 4,
+        "generations": 4,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "B_pop-4_iter-4_seed-42"
+    },
+    {
+      "group": "B",
+      "seed": 43,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 4,
+        "generations": 4,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "B_pop-4_iter-4_seed-43"
+    },
+    {
+      "group": "B",
+      "seed": 44,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 4,
+        "generations": 4,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "B_pop-4_iter-4_seed-44"
+    },
+    {
+      "group": "B",
+      "seed": 42,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 6,
+        "generations": 4,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "B_pop-6_iter-4_seed-42"
+    },
+    {
+      "group": "B",
+      "seed": 43,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 6,
+        "generations": 4,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "B_pop-6_iter-4_seed-43"
+    },
+    {
+      "group": "B",
+      "seed": 44,
+      "parameters": {
+        "max_sideways": 5,
+        "T0": 100,
+        "alpha": 0.999,
+        "T_min": 0.1,
+        "max_iter": 60,
+        "population_size": 6,
+        "generations": 4,
+        "mutation_rate": 0.1,
+        "generation_values": [
+          2,
+          4,
+          6
+        ],
+        "population_values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "run_id": "B_pop-6_iter-4_seed-44"
+    }
+  ],
+  "dataset_digest": "9fb19208c3fb280b654722ed57a0fb3ed18f96840588b6bad9efa9fca039cd3c",
+  "parameters": {
+    "max_sideways": 5,
+    "T0": 100,
+    "alpha": 0.999,
+    "T_min": 0.1,
+    "max_iter": 60,
+    "population_size": 4,
+    "generations": 4,
+    "mutation_rate": 0.1,
+    "generation_values": [
+      2,
+      4,
+      6
+    ],
+    "population_values": [
+      2,
+      4,
+      6
+    ]
+  },
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "schema_version": 1,
+  "completed_runs": 18
+}

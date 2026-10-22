@@ -70,6 +70,7 @@ def hill_climbing(vehicles, positions, ship, rng, max_sideways=100):
     initial_positions = list(positions)
     current = list(positions)
     current_value = calculate_objective(vehicles, current)
+    initial_objective = current_value  # Simpan nilai sebelum pencarian dimulai.
 
     sideways_count = 0 
     total_sideways = 0 
@@ -131,6 +132,7 @@ def hill_climbing(vehicles, positions, ship, rng, max_sideways=100):
 
     return {
         "initial_state": initial_positions,
+        "initial_objective": initial_objective,
         "final_state": current,
         "final_objective": current_value,
         "history": history,
